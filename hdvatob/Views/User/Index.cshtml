@@ -1,0 +1,129 @@
+﻿@model IPagedList<Users>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
+@using X.PagedList
+
+@{
+    ViewData["Title"] = "Danh sách nhân viên";
+}
+
+@section Scripts{
+    <script>
+        $('.viewlognhanvien').on('click', function () {
+            var username = $(this).data('username');
+             var url = '/User/ViewlogNhanvien';
+            $.get(url, { username: username }, function (data) {
+                $('#ModalViewLog').modal('show');
+                $('.DetailLog').html(data);
+            });
+        });
+    </script>
+
+}
+<section class="content-header">
+    <h1>
+        Danh sách nhân viên
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-action="index">Danh sách nhân viên</a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="col-md-12">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <form asp-action="index" method="get">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" placeholder="Find by name, Id" class="form-control" name="searchString" value="@ViewData["currentFilter"]" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    <a asp-action="create" class="btn btn-primary" title="Tạo mới nhân viên"><i class="fa fa-plus"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12" style="overflow-x:auto">
+                    <table class="table mytable text-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><i class="fa fa-gear"></i></th>
+                                <th>
+                                    Username
+                                </th>
+                                <th>
+                                    Họ tên
+                                </th>
+                                <th>
+                                    Account HDDT
+                                </th>
+                                <th>
+                                    Ký hiệu / Key
+                                </th>
+                                <th>
+                                    Chi nhánh
+                                </th>
+                                <th>
+                                    Admin
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.username">
+                                    <td class="text-center">
+                                        <a href="javascript:;" data-username="@item.username" title="Xem log file" class="viewlognhanvien text-success"><i class="fa fa-file-text"></i></a><span> | </span>
+                                        <a asp-action="Edit" asp-route-id="@item.username" title="Cập nhật nhân viên"><i class="fa fa-edit text-primary"></i></a><span> | </span>
+                                        <a asp-action="Delete" asp-route-id="@item.username" title="Xoá nhân viên"  onclick="return confirm ('Xóa nhân viên @item.username ?')"><i class="fa fa-trash text-danger"></i></a>
+
+                                    </td>
+                                    <td>
+                                        @item.username
+                                    </td>
+                                    <td>
+                                        @item.hoten
+                                    </td>
+                                    <td>
+                                        @item.accounthddt
+                                    </td>
+                                    <td>
+                                        @item.maviettat
+                                    </td>
+                                    <td>
+                                        @item.chinhanh
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" class="minimal" checked="@item.isAdmin" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager((IPagedList)ViewBag.users, page => Url.Action("index", new { page, searchString = @ViewData["currentFilter"] }),
+                                     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                                          {
+                                              LiElementClasses = new string[] { "page-item" },
+                                     PageClasses = new string[] { "page-link" },
+                                              MaximumPageNumbersToDisplay = 5,
+                                              UlElementClasses = new[] { "pagination" },
+                                     ContainerDivClasses = new[] { "pagination-container" }
+                                          }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "nameListContainer" }))
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

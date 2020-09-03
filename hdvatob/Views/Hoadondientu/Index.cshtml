@@ -1,0 +1,104 @@
+﻿@model List<ChinhanhHoadondientu>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Scripts{
+
+    <script src="~/Asset/Hoadondientu/HoadondientuControl.js"></script>
+}
+
+<section class="content-header">
+    <h1>
+        Danh sách chi nhánh đăng ký hoá đơn điện tử
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-action="index">Danh sách chi nhánh</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <h4>
+                    <a asp-controller="hoadondientu" asp-action="index"> <i class="fa fa-th fa-lg text-danger"></i></a><i> | </i>
+                    <a asp-controller="hoadondientu" asp-action="create"><i class="fa fa-plus fa-lg text-primary"></i></a>
+                </h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12" style="overflow:auto">
+                    <table class="table mytable text-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><i class="fa fa-gear"></i></th>
+                                <th>Mã CN</th>
+                                <th>
+                                    Tên chi nhánh
+                                </th>
+                                <th>
+                                    Địa chỉ
+                                </th>
+                                <th>
+                                    Điện thoại
+                                </th>
+                                <th>
+                                    Fax
+                                </th>
+                                <th>
+                                    Mã số thuế
+                                </th>
+                                <th>
+                                    Ký hiệu
+                                </th>
+                                <th>
+                                    Kích hoạt
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <a asp-action="Edit" asp-route-id="@item.machinhanh"><i class="fa fa-edit"></i></a> 
+                                    </td>
+                                    <td class="text-center">@item.machinhanh</td>
+                                    <td>
+                                        @item.tenchinhanh
+                                    </td>
+                                    <td>
+                                        @item.diachi
+                                    </td>
+                                    <td>
+                                        @item.dienthoai
+                                    </td>
+                                    <td>
+                                        @item.fax
+                                    </td>
+                                    <td>
+                                        @item.masothue
+                                    </td>
+                                    <td class="text-center">
+                                        @item.maviettat
+                                    </td>
+                                    <td class="text-center" >
+                                        <input type="checkbox"  checked="@item.isActive"/>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hoá đơn VAT</title>
+
+    @*<environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+                  crossorigin="anonymous"
+                  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+        </environment>*@
+
+    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">*@
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/ionicons/css/ionicons.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/select2/css/select2.css" rel="stylesheet" />
+    @*<link href="~/AdminLTE/plugins/icheck/css/all.css" rel="stylesheet" />*@
+    <link href="~/AdminLTE/dist/css/admin-lte.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/pace/css/pace.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/skins/_all-skins.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/icheck/css/all.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/jquery-ui/css/jquery-ui/themes/ui-darkness/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/AdminLTE/dist/css/skins/_all-skins.css" rel="stylesheet" />*@
+    <link href="~/image/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <a href="@Url.Action("Index", "Home")" class="logo">
+                <span class="logo-mini">
+                    <img src="~/image/favicon.ico" />
+                </span>
+                <span class="logo-lg">
+                    <img src="~/image/logo1.png" class="mypicture" />
+                </span>
+            </a>
+            <nav class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-cog"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-align-left text-aqua"></i> 5 new members joined today
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                                                page and may cause design problems
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users text-red"></i> 5 new members joined
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-user text-red"></i> You changed your username
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <partial name="_Leftmenu" />
+        <div class="content-wrapper">
+            @*<section class="content-header">
+                <h1>
+                    @ViewBag.Title
+                    <small>@ViewBag.SubTitle</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i>@ViewBag.SubTitle</a></li>
+                    <li class="active">@ViewBag.Title</li>
+                </ol>
+            </section>*@
+            <section class="content">
+
+                @if (TempData["AlertMessage"] != null)
+                {
+                    <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                        @TempData["AlertMessage"]
+
+                    </div>
+                }
+
+                @RenderBody()
+            </section>
+        </div>
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.0.0
+            </div>
+            <strong>Copyright &copy; 2019-2020 <a href="https://saigontourist.net">Saigontourist.net</a>.</strong> All rights
+            reserved.
+        </footer>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+
+    @*<environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+            </script>
+        </environment>*@
+
+    @*<script src="~/AdminLTE/plugins/jquery/js/jquery.js"></script>*@
+    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+    <script src="~/AdminLTE/plugins/slimscroll/js/jquery.slimscroll.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap.js"></script>
+
+    <script src="~/AdminLTE/plugins/pace/js/pace.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-validate/js/jquery.validate.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-ui/js/jquery-ui.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-validate/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/AdminLTE/plugins/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/AdminLTE/plugins/datatables/js/dataTables.bootstrap.js"></script>
+    <script src="~/AdminLTE/plugins/select2/js/select2.full.js"></script>
+    <script src="~/AdminLTE/plugins/momentjs/js/moment.min.js"></script>
+
+    <script src="~/AdminLTE/plugins/icheck/js/icheck.js"></script>
+    <script src="~/AdminLTE/plugins/fastclick/js/fastclick.js"></script>
+
+    <script src="~/AdminLTE/plugins/input-mask/js/jquery.inputmask.js"></script>
+    <!--Dung dinh dang ngay-->
+    <script src="~/AdminLTE/plugins/maskedinput/jquery.maskedinput.min.js"></script>
+
+    <script src="~/AdminLTE/dist/js/app.js"></script>
+
+    <script src="~/js/site.js"></script>
+
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+<div id="ModalViewLog" class="modal fade in" role="dialog" style="display:none">
+    <div class="DetailLog"></div>
+</div>
+
+<script>
+    $('.updateInfo').off('click').on('click', function () {
+        var url = '/User/CapnhatAccountVNPT';
+        $.get(url, function (data) {
+            $('#ModalViewLog').modal('show');
+            $('.DetailLog').html(data);
+        });
+    });
+</script>

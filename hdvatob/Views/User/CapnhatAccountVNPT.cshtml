@@ -1,0 +1,77 @@
+﻿@model Users
+@*<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-title">Cập nhật thông tin nhân viên</div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form asp-action="CapnhatAccountVNPT">
+                        <input type="hidden" asp-for="username" />
+                        <div class="form-control col-md-12">
+                            <label class="control-label">Họ tên nhân viên</label>
+                            <input asp-for="hoten" class="form-control" />
+                        </div>
+                        <div class="form-control col-md-6">
+                            <label class="control-label">Account VNPT</label>
+                            <input asp-for="accounthddt" class="form-control" />
+                        </div>
+                        <div class="form-control col-md-6">
+                            <label class="control-label">Pass VNPT</label>
+                            <input asp-for="passwordhddt" class="form-control" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="modal-dialog">
+        <form asp-action="CapnhatAccountVNPT" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-title">CẬP NHẬT THÔNG TIN NHÂN VIÊN</div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <input type="hidden" asp-for="username" />
+                            <div class="form-group col-md-12">
+                                Họ tên nhân viên
+                                <input asp-for="hoten" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                Account VNPT
+                                <input asp-for="accounthddt" class="form-control" />
+                                <span asp-validation-for="accounthddt" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                Pass VNPT
+                                <input asp-for="passwordhddt" class="form-control" />
+                                <span asp-validation-for="passwordhddt" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close text-danger"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>

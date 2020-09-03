@@ -1,0 +1,196 @@
+﻿@model Hoadon
+@{
+    var products = (IEnumerable<ProductsViewModel>)ViewBag.listProduct;
+}
+<style>
+    .mymodal {
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        font-family: 'Times New Roman';
+    }
+
+
+
+    .line_top {
+        line-height: 24px;
+        font-size: 17px;
+    }
+
+    .cellformat {
+        padding: 10px;
+    }
+
+
+    .report-container {
+        page-break-after: always;
+    }
+
+    thead.report-header {
+        display: table-header-group;
+    }
+
+    tfoot.report-footer {
+        display: table-footer-group;
+        border: none;
+    }
+
+    tbody {
+        background-color: white;
+    }
+
+    tfoot {
+        border: none;
+       
+    }
+
+    /*#tbReport {
+        border-collapse: collapse;
+    }*/
+
+   
+</style>
+
+<div class="modal-dialog modal-lg" style="width: 1100px; overflow: auto; ">
+    
+    <div class="modal-content ">
+        @*<div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>*@
+        <div class="modal-body mymodal">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:45%; font-size:12px;">
+                        <img src="~/image/logoV.png" class="mypicture" /><br />
+                        <span style="font-weight:bold;">CÔNG TY TNHH MỘT THÀNH VIÊN DỊCH VỤ LỮ HÀNH SAIGONTOURIST</span><br />
+                        <span style="font-style:italic;">SAIGONTOURIST TRAVEL SERVICE COMPANY LIMITED</span><br />
+                        <span style="font-size:14px;">E-mail:info@saigontourist.net</span><br />
+                        <span style="font-size:14px;">Website:www.saigontourist.net</span>
+                    </td>
+                    <td style="width:35%;text-align:center">
+                        <span style="font-size:20px;font-weight:bold">HOÁ ĐƠN GIÁ TRỊ GIA TĂNG</span><br />
+                        <span style="font-size:20px;font-weight:bold; font-style:italic">(TAX INVOICE)</span><br />
+                        <span class="line_top">Ngày @System.DateTime.Now.ToString("dd") tháng @System.DateTime.Now.ToString("MM") năm  @System.DateTime.Now.ToString("yyyy")</span>
+                    </td>
+                    <td style="width:20%;font-size:13px;">
+                        <span>Mẫu số(Form):</span><span style="font-weight:bold">&nbsp; &nbsp;@Context.Session.GetString("mausohd")</span><br />
+                        <span>Ký hiệu(Serial):</span><span style="font-weight:bold">&nbsp; &nbsp;@Context.Session.GetString("kyhieuhd")</span><br />
+                        <span>Số HD(Inv.No):</span><span style="font-weight:bold; color:red;">&nbsp; &nbsp;@ViewBag.sohd</span><br />
+
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Đơn vị bán hàng (Seller):&nbsp; Theo thông tin của từng đơn vị</span><i class="fa fa-heart text-red"></i>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Mã số thuế (VAT code):Theo thông tin của từng đơn vị</span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Địa chỉ (Address):Theo thông tin của từng đơn vị</span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Số tài khoản (Acc. Number): Theo thông tin của từng đơn vị </span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Điện thoại (Telephone): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fax:</span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Đơn vị mua hàng (Buyer):@Model.tenkh </span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Họ tên người mua hàng (Name):@Model.tenkhach </span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Mã số thuế (VAT code):@Model.msthue </span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Địa chỉ (Address):@Model.diachi </span>
+                    </td>
+                </tr>
+                <tr class="line_top">
+                    <td colspan="3">
+                        <span>Hình thức thanh toán (Mode of payment):@Model.httt </span>
+                    </td>
+                </tr>
+                <tr><td colspan="3">&nbsp;</td></tr>
+                <tr>
+                    <td colspan="3">
+                        <table border="1" style="width:100% " class="report-container" id="tbReport">
+                            <thead class="report-header">
+                                <tr>
+                                    <th style="width:30px;" class="text-center">STT<br /> No</th>
+                                    <th class="text-center">Tên hàng hoá, dịch vụ <br />Description</th>
+                                    <th class="text-center">Số tiền <br />Amount</th>
+                                    <th class="text-center">Tiền phí DV <br />Service charge</th>
+                                    <th class="text-center">Thuế suất <br />VAT rate %</th>
+                                    <th class="text-center">Tiền thuế <br />VAT Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody style="border-collapse: collapse;">
+                                @if (ViewBag.count > 0)
+                                {
+
+                                    @foreach (var i in products)
+                                    {
+
+                                        <tr>
+                                            <td class="text-center">@i.ProdId</td>
+                                            <td class="cellformat">@i.ProdName</td>
+                                            <td class="text-right cellformat">@Html.Raw(i.Amount.ToString("#,##0"))</td>
+                                            <td class="text-right cellformat">@Html.Raw(i.Extra1.ToString("#,##0"))</td>
+                                            <td class="text-right cellformat">@i.VATRate %</td>
+                                            <td class="text-right cellformat">@Html.Raw(i.VATAmount.ToString("#,##0"))</td>
+                                        </tr>
+
+                                    }
+                                }
+                            </tbody>
+                            <tfoot class="report-footer">
+                                <tr>
+                                    <td class="text-right cellformat" colspan="2">Cộng (Sub total): </td>
+                                    <td class="text-right cellformat">@Html.Raw((ViewBag.tcsotien).ToString("#,##0"))</td>
+                                    <td class="text-right cellformat">@Html.Raw((ViewBag.tcppv).ToString("#,##0"))</td>
+                                    <td class="text-right cellformat"></td>
+                                    <td class="text-right cellformat">@Html.Raw((ViewBag.tcvat).ToString("#,##0"))</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right cellformat" colspan="2">Tổng cộng (Total)</td>
+                                    <td class="text-right cellformat">@Html.Raw((ViewBag.tong).ToString("#,##0"))</td>
+                                    <td class="text-right cellformat"></td>
+                                    <td class="text-right cellformat"></td>
+                                    <td class="text-right cellformat"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="line_top">Số tiền viết bằng chữ:&nbsp;&nbsp; @ViewBag.sotienbangchu</div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="reset" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+        <div class="text-center" style="font-style:italic">(Đây không phải là hoá đơn giá trị gia tăng, không có giá trị thanh toán)</div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+﻿@model supplier
+
+@{
+    ViewData["Title"] = "Tạo khách hàng";
+}
+
+<section class="content-header">
+    <h1>
+        Tạo khách hàng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlSupplier")">Danh sách khách hàng</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+                @*<button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i>
+                </button>*@
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                   
+                    <div class="form-group col-md-2">
+                        Mã KH
+                        <input asp-for="code" class="form-control text-center text-uppercase" maxlength="5" />
+                        <span asp-validation-for="code" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        Tên giao dịch
+                        <input asp-for="name" class="form-control text-uppercase" />
+                        <span asp-validation-for="name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-5">
+                        Tên thương mại
+                        <input asp-for="realname" class="form-control text-uppercase" />
+                        <span asp-validation-for="realname" class="text-danger"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-8">
+                        Địa chỉ
+                        <input asp-for="address" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        Thành phố
+                        <input asp-for="city" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        Điện thoại
+                        <input asp-for="telephone" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-4">
+                        Email
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        Fax
+                        <input asp-for="fax" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        Mã số thuế
+                        <input asp-for="taxcode" class="form-control" />
+                    </div>
+                    <div class="form-group col-md-4">
+                        Người liên hệ
+                        <input asp-for="contact" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                        <a href="@Context.Session.GetString("urlSupplier")" class="btn btn-default"><i class="fa fa-undo"></i></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

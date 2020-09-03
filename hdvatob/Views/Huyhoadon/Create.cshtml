@@ -1,0 +1,114 @@
+﻿@model hdvatob.Data.Model.Huyhdvat
+
+@{
+    ViewData["Title"] = "Tạo hoá đơn huỷ";
+}
+
+@section Scripts{
+
+
+    <script src="~/Asset/Hoadon/CreateHoadonControl.js"></script>
+}
+
+<section class="content-header">
+    <h1>
+        Tạo hoá đơn điều chỉnh giảm thuế GTGT
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlHuyHoadon")">Danh sách hoá đơn điều chỉnh giảm</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-body">
+                <form asp-action="Create" id="frmTaohoadon">
+                    <input type="hidden" asp-for="stt" />
+                    <div class="form-group col-md-2">
+                        Ngày hoá đơn
+                        <input asp-for="ngayct" class="form-control text-center datepicker" type="text" asp-format="{0:dd/MM/yyyy}" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        Số hoá đơn VAT
+                        <input asp-for="hdvat" class="form-control text-center" type="text" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        Ký hiệu hoá đơn
+                        <input asp-for="kyhieu" class="form-control text-center" type="text" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        Mẫu số hoá đơn
+                        <input asp-for="mausohd" class="form-control text-center" type="text" readonly />
+                    </div>
+                    <div class="form-group col-md-2">
+                        HTTT
+                        <select asp-items="@ViewBag.httt" asp-for="httt" class="form-control"></select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        Mã KH
+                        <div class="input-group">
+                            <input asp-for="makh" class="form-control text-center" type="text" id="itxtmakh" />
+                            <span class="input-group-btn">
+                                <a href="javascript:;" class="btn btn-default" id="btSearchkh_i" title="Tìm thông tin khách hàng"><i class="fa fa-search"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-5">
+                        Tên công ty
+                        <input asp-for="tenkh" class="form-control" type="text" id="itxttencty" />
+                    </div>
+                    <div class="form-group col-md-5">
+                        Tên khách
+                        <input asp-for="tenkhach" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group col-md-5">
+                        Địa chỉ
+                        <input asp-for="diachi" class="form-control" type="text" id="itxtdiachi" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        Điện thoại
+                        <input asp-for="dienthoai" class="form-control" type="text" id="itxtdienthoai" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        Mã số thuế
+                        <input asp-for="msthue" class="form-control" type="text" id="itxtmst" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        Hợp đồng
+                        <input asp-for="hopdong" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group col-md-1">
+                        Coupon
+                        <div class="checkbox">
+                            <input asp-for="coupon" type="checkbox" class="minimal" />
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        Ghi chú
+                        <input asp-for="ghichu" class="form-control" type="text" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        Nội dung huỷ
+                        <input asp-for="noidunghuy" class="form-control" type="text" />
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-12">
+                        <input type="submit" value="Tạo mới" class="btn btn-primary" />
+                        <a href="@Context.Session.GetString("urlHuyHoadon")" class="btn btn-default">Hủy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="iModalTimkh" class="modal fade" role="dialog" style="display:none">
+    <div class="ilisttimkh"></div>
+</div>
+
+
+
+

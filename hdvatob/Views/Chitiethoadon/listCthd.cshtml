@@ -1,0 +1,245 @@
+﻿@model IEnumerable<cthdvat>
+
+<script src="~/Asset/Chitiethoadon/cthoadonControl.js"></script>
+<script>
+    //  $( "#txtSgtcode" ).keypress(function( event ) {
+    //if ( event.which == 13 ) {
+    //    alert('OK');
+    //      }
+
+    $('#txtSgtcode').off('keypress').on('keypress', function (e) {
+        if (e.which === 13) {
+            var id = $(this).data('id');
+            var sgtcode = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "/Chitiethoadon/updateSgtcode",
+                data: { id: id ,sgtcode:sgtcode},
+                dataType: "json",
+                success: function () {
+                    window.location.reload();
+                }
+                , error: function (xhr, status, error) {
+                    alert("Có lỗi: " + error + " ,xin thông báo cho người quản lý biết!");
+                }
+            });
+        }
+    });
+</script>
+
+
+<div style=" max-height:200px; overflow-x:auto">
+    @*<div class="hienthicthd" style="overflow-x:auto">*@
+    <table class="table mytable text-nowrap" id="tbCthd">
+        <thead>
+            <tr>
+                <th class="text-center"><i class="fa fa-gear"></i></th>
+                <th>
+                    STT
+                </th>
+                <th>
+                    Diễn giải
+                </th>
+                <th>
+                    Số vé tour
+                </th>
+                <th>
+                    Số vé máy bay
+                </th>
+                <th>
+                    Ngày xuất vé
+                </th>
+                <th>
+                    Code đoàn
+                </th>
+                <th>
+                    SK
+                </th>
+                <th>
+                    Số tiền NT
+                </th>
+                <th>
+                    Loại tiền
+                </th>
+                <th>
+                    Tỷ giá
+                </th>
+                <th>
+                    Số tiền
+                </th>
+                <th>
+                    % PPV
+                </th>
+                <th>
+                    % VAT
+                </th>
+                <th>
+                    TK nợ
+                </th>
+                <th>
+                    TK có
+                </th>
+                <th>
+                    Tên khách
+                </th>
+                <th>
+                    Ghi chú
+                </th>
+                <th>
+                    Coupon thu hồi
+                </th>
+                <th>
+                    Coupon sử dụng
+                </th>
+                <th>
+                    Tour
+                </th>
+                <th>
+                    HTTC
+                </th>
+                <th>
+                    Ngày huỷ
+                </th>
+                <th>
+                    Số HĐ huỷ
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+                    <td>
+                        <a href="javascript:;" data-id="@item.Id" title="Xem log file" class="viewlog_cthd text-success"><i class="fa fa-file-text"></i></a><span> | </span>
+                        <a asp-action="capnhatcthd" asp-route-id="@item.Id" title="Cập nhật chi tiết hoá đơn"><i class="fa fa-edit text-primary"></i></a> |
+                        <a href="javascript:;" id=@Html.Raw("btnXoact_"+item.Id) data-id="@item.Id" data-sgtcode="@item.sgtcode" data-nguoitaohd="@ViewBag.nguoitao" data-user="@ViewBag.user" data-keyhddt="@ViewBag.keyhddt" data-serial="@item.serial" title="Xoá chi tiết hoá đơn"><i class=" fa fa fa-trash text-danger"></i></a>
+                    </td>
+                    <td class="text-center">
+                        @item.sttdong
+                    </td>
+                    <td>
+                        @item.diengiai
+                    </td>
+                    <td>
+                        @item.serial
+
+                    </td>
+                    <td class="text-center">
+                        @item.number
+                    </td>
+                    <td>
+                        @Html.Raw(item.xuatve.HasValue ? item.xuatve.Value.ToString("dd/MM/yyyy") : " / /")
+                    </td>
+                    <td>
+
+                        @if (!string.IsNullOrEmpty(item.serial))
+                        {
+                            @item.sgtcode
+                        }
+                        else
+                        {
+                            <input type="text" asp-for="@item.sgtcode" class="text-uppercase" data-id="@item.Id" id="txtSgtcode" style="width:150px;" />
+                        }
+                    </td>
+                    <td class="text-center">
+                        @item.sk
+                    </td>
+                    <td class="text-right">
+                        @Html.Raw(string.Format("{0:#,##0.00}", item.sotiennt))
+                    </td>
+                    <td>
+                        @item.loaitien
+                    </td>
+                    <td class="text-right">
+                        @Html.Raw(string.Format("{0:#,##0.0}", item.tygia))
+                    </td>
+                    <td class="text-right">
+                        @Html.Raw(string.Format("{0:#,##0}", item.sotien))
+                    </td>
+                    <td class="text-center">
+                        @item.ppv
+                    </td>
+                    <td class="text-center">
+                        @item.vat
+                    </td>
+                    <td>
+                        @item.tkno
+                    </td>
+                    <td>
+                        @item.tkco
+                    </td>
+                    <td>
+                        @item.tenkhach
+                    </td>
+                    <td>
+                        @item.ghichu
+                    </td>
+                    <td class="text-right">
+                        @Html.Raw(string.Format("{0:#,##0}", item.coupon))
+                    </td>
+                    <td>
+                        @Html.Raw(string.Format("{0:#,##0}", item.tiencoupon))
+                    </td>
+                    <td>
+                        @item.tour
+                    </td>
+                    <td>
+                        @item.httc
+                    </td>
+                    <td>
+                        @Html.Raw(item.ngayhuy.HasValue ? item.ngayhuy.Value.ToString("dd/MM/yyyy") : " / / ")
+                    </td>
+                    <td>
+                        @item.hoadonhuy
+                    </td>
+                    <td style="display:none;">
+                        <script>
+
+                             $("table").on("click", "#btnXoact_" +@item.Id, function () {
+                                 var id = $(this).data('id');
+                                 var nguoitao = $(this).data('nguoitaohd');
+                                 var user = $(this).data('user');
+                                 var keyhddt = $(this).data('keyhddt');
+                                 var serial = $(this).data('serial');
+                                 if (keyhddt.length > 0) {
+                                     alert('Không thể xoá khi đã xuất hoá đơn');
+                                     return;
+                                 }
+                                 else {
+                                     if (nguoitao != user) {
+                                         alert('Chỉ người tạo hoá đơn mới được xoá chi tiết này.')
+                                     }
+                                     else {
+                                         if (confirm("Xoá chi tiết này?")) {
+                                             $.ajax({
+                                                 type: "POST",
+                                                 url: "/Chitiethoadon/Xoacthd",
+                                                 data: { id: id },
+                                                 success: function () {
+                                                     location.reload();
+                                                 }
+                                             });
+                                         }
+                                        // window.location.reload(true);
+                                     }
+                                 }
+                            });
+                        </script>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="text-center">
+                    <a href="@Url.Action("themcthd", "chitiethoadon", new { idhoadon = @TempData["idhoadon"].ToString() })" title="Thêm chi tiết hoá đơn bằng tay"><i class="fa fa-plus"></i></a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+

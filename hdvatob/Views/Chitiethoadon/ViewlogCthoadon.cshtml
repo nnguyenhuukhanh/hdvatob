@@ -1,0 +1,18 @@
+﻿@model cthdvat
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header bg-gray">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-title">Xem log file chi tiết hoá đơn @Model.Idhoadon</div>
+        </div>
+        <div class="modal-body" style="max-height: 400px !important; overflow-y:auto">
+            <span style="white-space: pre-line">@Model.logfile</span>
+        </div>
+        <div class="modal-footer">
+            <button type="reset" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+
+    </div>
+</div>

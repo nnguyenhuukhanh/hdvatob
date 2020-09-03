@@ -1,0 +1,105 @@
+﻿@model hdvatob.Data.Model.Huycthdvat
+
+@{
+    ViewData["Title"] = "Themhuycthd_";
+}
+@section Scripts {
+
+
+    <script src="~/Asset/Chitiethuyhoadon/themhuycthd_1Control.js"></script>
+}
+
+<section class="content-header">
+    <h1>
+        Thêm huỷ chi tiết hoá đơn @ViewBag.id
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlHuyHoadon")">Danh sách hoá đơn huỷ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlEditHoadonhuy")">Điều chỉnh hoá đơn huỷ</a></li>
+    </ol>
+</section>
+<section class="content">
+    <form asp-action="Themhuycthd_1" method="post" id="frmThemhuycthd_1">
+        <div class="row">
+            <div class="box no-border">
+                <div class="box-header">
+                    <div class="box-tools pull-right">
+                        <a href="@Context.Session.GetString("urlEditHoadonhuy")" class="btn btn-box-tool"><i class="fa fa-remove"></i></a>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <input type="hidden" asp-for="Idhoadon" />
+
+                        <div class="form-group col-md-12">
+                            Diễn giải
+                            <input asp-for="diengiai" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-8">
+                            Tên khách
+                            <input asp-for="tenkhach" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Code đoàn
+                            <input asp-for="diengiai" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Số khách
+                            <input asp-for="sk" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Số tiền NT <span style="color:red"><strong>(-)</strong></span>
+                            <input asp-for="sotiennt" class="form-control text-right numbers" id="txtSotiennt" asp-format="{0:#,##0}" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Loại tiền
+                            <select asp-for="loaitien" asp-items="@ViewBag.ngoaite" class="form-control"></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Tỷ giá
+                            <input asp-for="tygia" class="form-control text-right numbers" id="txtTygia" asp-format="{0:#,##0}" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Tiền VND <span style="color:red"><strong>(-)</strong></span>
+                            <input asp-for="sotien" class="form-control text-right numbers" id="txtSotien" asp-format="{0:#,##0}" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            % PPV
+                            <input asp-for="ppv" class="form-control text-center numbers" type="text" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            % VAT
+                            <input asp-for="vat" class="form-control text-center numbers" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            HTTC
+                            <select asp-for="httc" asp-items="@ViewBag.httc" class="form-control select2" style="width:100%"></select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-6">
+                            Tài khoản nợ
+                            <select asp-for="tkno" asp-items="@ViewBag.tkno" class="form-control select2" style="width:100%"></select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            Tài khoản có
+                            <select asp-for="tkco" asp-items="@ViewBag.tkco" class="form-control select2" style="width:100%"></select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            Ghi chú
+                            <input asp-for="ghichu" class="form-control" type="text" />
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                            <a href="@Context.Session.GetString("urlEditHoadonhuy")" class="btn btn-default">Hủy</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+</section>

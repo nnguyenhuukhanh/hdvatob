@@ -1,0 +1,96 @@
+﻿@model  changepassViewModel
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>login</title>
+    <link href="~/AdminLTE/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link href="~/AdminLTE/plugins/ionicons/css/ionicons.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/skins/_all-skins.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/admin-lte.css" rel="stylesheet" />
+    <link href="~/image/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper" style="background-color:#ECF0F5">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <span class="logo-mini">
+                    <img src="~/image/favicon.ico" />
+                </span>
+                <span class="logo-lg">
+                    <img src="~/image/logo1.png" class="mypicture" />
+                </span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                @*<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>*@
+            </nav>
+        </header>
+        <div class="content-wrapper" style="padding-top:100px;">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-3">
+                    <div class="box">
+                        <div class="login-panel panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title text-center text-uppercase">Đổi mật khẩu</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <form asp-action="changepass" asp-controller="login" method="post">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user" style="color:black"></i></span>
+                                            <input asp-for="Username" class="form-control username" readonly />
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key "></i></span>
+                                            <input asp-for="Password" type="password" class="form-control" placeholder="Mật khẩu cũ" autofocus autocomplete="off" />
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key "></i></span>
+                                            <input asp-for="Newpassword" type="password" class="form-control" placeholder="Mật khẩu mới" />
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key "></i></span>
+                                            <input asp-for="Confirmpassword" type="password" class="form-control" placeholder="Nhập mật khẩu mới" />
+                                        </div>
+                                        <button type="submit" class="btn btn-block btn-primary form-control">Đồng ý</button>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap.js"></script>
+
+    <script src="~/AdminLTE/plugins/jquery-ui/js/jquery-ui.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-validate/js/jquery.validate.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-validate/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/AdminLTE/plugins/select2/js/select2.full.js"></script>
+
+    <script src="~/AdminLTE/plugins/slimscroll/js/jquery.slimscroll.js"></script>
+    <script src="~/AdminLTE/plugins/fastclick/js/fastclick.js"></script>
+    <script src="~/Scripts/Shared/_Layout.js"></script>
+    <script src="~/AdminLTE/dist/js/app.js"></script>
+
+    @*<script src="~/js/site.js"></script>*@
+
+</body>
+</html>

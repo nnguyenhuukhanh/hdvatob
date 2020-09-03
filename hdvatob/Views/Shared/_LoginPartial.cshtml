@@ -1,0 +1,59 @@
+﻿
+
+<li class="dropdown user user-menu">
+    @*@if (Request.IsAuthenticated)
+        {*@
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <img src="~/AdminLTE/dist/img/user.svg" class="user-image" alt="User Image">
+        <span class="hidden-xs">
+            @*@Context.Session.GetString("hoten")*@
+        </span>
+
+    </a>
+    <ul class="dropdown-menu">
+        <li class="user-header">
+            <img src="~/AdminLTE/dist/img/user.svg" class="img-circle" alt="User Image">
+            <p>
+                <small>@Context.Session.GetString("hoten")</small>
+            </p>
+        </li>
+        @*<li class="user-body">
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <a href="#">Followers</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a href="#">Sales</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a href="#">Friends</a>
+                    </div>
+                </div>
+            </li>*@
+    <li class="user-footer">
+        @*@using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()*@
+        <div class="pull-left">
+            @*@Html.ActionLink("Change pass", "changepass", "Login", routeValues: null, htmlAttributes: new { @class = "btn btn-default btn-flat", title = "ChangePass" })*@
+            <a asp-controller="login" asp-action="changepass" class="btn btn-default">Change pass</a>
+        </div>
+        <div class="pull-left">
+            <a href="javascript:;" class="btn btn-primary updateInfo">User info</a>
+        </div>
+        <div class="pull-right">
+            <a asp-controller="login" asp-action="logout" class="btn btn-default">Logout</a>
+        </div>
+        @* }*@
+    </li>
+    </ul>
+    @*}
+        else
+        {
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            </ul>
+        }*@
+</li>
+

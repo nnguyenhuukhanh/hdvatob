@@ -1,0 +1,174 @@
+﻿@model List<DataTuVetour>
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Datatuvetour";
+    var a = JsonConvert.SerializeObject(Model);
+
+}
+
+@section Scripts {
+
+    <script src="~/Asset/Hoadon/DatatuvetourControl.js"></script>
+    <script>
+        function checkAll(tableID) {
+            var table = document.getElementById(tableID);
+            var val = table.rows[0].cells[0].children[0].checked;
+            for (var i = 1; i < table.rows.length; i++) {
+                table.rows[i].cells[0].children[0].checked = val;
+            }
+        }
+        $('#txtTygia').off('blur').on('blur', function () {            
+           //var tygia =  Number($('#txtTygia').val().replace(/,/g, ''));
+            $('#btLoadData').click();
+        });
+
+    </script>
+
+}
+
+
+<section class="content-header">
+    <h1>
+        Lấy data bán vé từ  tour lẽ
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlHoadon")">Danh sách hoá đơn</a></li>
+        <li class="active"><a href="@Url.Action("Edit", "Hoadon", new { id = ViewBag.idhoadon })">Điều chỉnh hoá đơn</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box ">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <form asp-action="Datatuvetour" id="frmDatatuvetour">
+                        <input type="hidden" name="idhoadon" id="txtIdhoadon" value="@ViewBag.idhoadon" />
+                        <div class="form-group col-md-2">
+                            Tour
+                            <select name="tour" asp-items="@ViewBag.tour" id="cboTour" class="form-control" style="width:100%"></select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            Xuất vé tour từ ngày
+                            <input name="tungay" value="@ViewBag.tungay" class="form-control datepicker" type="text" asp-format="{0:dd/MM/yyyy}" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            Đến ngày
+                            <input name="denngay" value="@ViewBag.denngay" class="form-control datepicker" type="text" asp-format="{0:dd/MM/yyyy}" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            %PPV
+                            <input name="ppv" value="@ViewBag.ppv" id="txtPpv" class="form-control text-center numbers" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Tỷ giá
+                            <input name="tygia" value="@ViewBag.tygia" id="txtTygia" class="form-control text-right numbers" asp-format="{0:#,##0.0}" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-5">
+                            Tài khoản nợ
+                            <select name="tkno" asp-items="@ViewBag.tkno" id="cboTkno" class="form-control select2" style="width:100%"></select>
+                        </div>
+                        <div class="form-group col-md-5">
+                            Tài khoản có
+                            <select name="tkco" asp-items="@ViewBag.tkco" id="cboTkco" class="form-control select2" style="width:100%"></select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Chi nhánh
+                            <input name="chinhanh" value="@ViewBag.chinhanh" class="form-control text-center" disabled />
+                        </div>
+                        <div class="form-group col-md-8">
+                            Tuyến tham quan
+                            <input name="tuyentq" class="form-control" value="@ViewBag.tuyentq" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <br />
+                            <button type="submit" class="btn btn-primary" formaction="/Hoadon/Datatuvetour" id="btLoadData" formmethod="get" title="Load"><i class="fa fa-search"></i></button>
+                            <a href="@Context.Session.GetString("urlHoadon")" class="btn btn-default" title="huỷ"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                    <div class="form-group col-md-2">
+                        <br />
+                        <form asp-action="Datatuvetour" method="post" id="formDataVetour">
+                            <input type="hidden" name="idhoadon" value="@ViewBag.idhoadon" />
+                            <input type="hidden" name="ppv" value="@ViewBag.ppv" />
+                            <select name="tour" asp-items="@ViewBag.tour" style="display:none;"></select>
+                            <select name="tkno" asp-items="@ViewBag.tkno" style="display:none;"></select>
+                            <select name="tkco" asp-items="@ViewBag.tkco" style="display:none;"></select>
+                            <input type="hidden" name="tygia" value="@ViewBag.tygia" />
+                            <input type="hidden" name="list" id="stringId" />
+                            <button type="button" id="btSavedata" class="btn btn-warning" title="Save"><i class="fa fa-check-circle"></i></button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="box-body">
+                @*@using (Html.BeginForm("Datatuvetour", "Hoadon", FormMethod.Post))
+                    {*@
+                <div class="col-md-12" style="max-height:300px; overflow:auto">
+                    <table class="table mytable text-nowrap" id="tbDatavetour">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" onchange="checkAll ('tbDatavetour')"/></th>
+                                <th>Số vé tour</th>
+                                <th>Tuyến tham quan</th>
+                                <th>Code đoàn</th>
+                                <th>Tên khách</th>
+                                <th>Số tiền</th>
+                                <th>Doanh thu NN</th>
+                                <th>Xuất vé</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.count > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr class="chon_" data-serial="@item.serial">
+                                        <td class="text-center">
+                                            <input type="checkbox" class="ckId" data-serial="@item.serial" data-sgtcode="@item.sgtcode" data-tuyentq="@item.tuyentq" data-tenkhach="@item.tenkhach" data-sotiennt="@item.sotiennt" data-doanhthunn="@item.doanhthunn" data-loaitien="@item.loaitien" data-tygia="@item.tygia" data-diengiai="@item.diengiai" data-ghichu="@item.ghichu" data-xuatve="@item.xuatve" data-vat="@item.vat" />                                           
+                                        </td>
+                                        <td class="text-center">
+                                            @item.serial
+                                        </td>
+                                        <td>
+                                            @item.tuyentq
+                                        </td>
+                                        <td class="text-center">
+                                            @item.sgtcode
+                                        </td>
+                                        <td>
+                                            @item.tenkhach
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.Raw(String.Format("{0:#,##0.0}", item.sotiennt))
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.Raw(String.Format("{0:#,##0.0}", item.doanhthunn))
+                                        </td>
+                                        <td>
+                                            @item.xuatve
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+              
+            </div>
+
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="ctDatatuvetour" style="overflow-x:auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

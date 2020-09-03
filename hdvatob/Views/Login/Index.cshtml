@@ -1,0 +1,170 @@
+﻿@model LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>login</title>
+    <link href="~/AdminLTE/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link href="~/AdminLTE/plugins/ionicons/css/ionicons.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/skins/_all-skins.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/admin-lte.css" rel="stylesheet" />
+    <link href="~/image/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper" style="background-color:#ECF0F5">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <span class="logo-mini">
+                    <img src="~/image/favicon.ico" />
+                </span>
+                <span class="logo-lg">
+                    <img src="~/image/logo1.png" class="mypicture" />
+                </span>
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                @*<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>*@
+            </nav>
+        </header>
+        <div class="content-wrapper" style="padding-top:10px;">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-2">
+                    <div class="box">
+                        <div class="login-panel panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title text-center text-uppercase">LOG IN</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <form asp-action="login" asp-controller="login" method="post" class="form-horizontal">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <fieldset class="groupbox-border">
+                                                <legend class="groupbox-border">Đăng nhập chương trình</legend>
+                                                <div class="form-group">
+                                                    <div class="col-md-5"> Tên đăng nhập </div>
+                                                    <div class="col-md-7">
+                                                        <input asp-for="Username" class="form-control " id="txtUsername" placeholder="Tên người sử dụng chương trình" autofocus autocomplete="off" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-5">Mật khẩu</div>
+                                                    <div class="col-md-7">
+                                                        <input type="password" asp-for="Password" class="form-control" placeholder="Mật khẩu" autocomplete="off" />
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-group">
+                                            <fieldset class="groupbox-border">
+                                                <legend class="groupbox-border">Thông tin về hoá đơn điện tử</legend>
+                                                @*<div class="form-group">
+                                                    <div class="col-md-5">Tên người tạo HĐĐT</div>
+                                                    <div class="col-md-7">
+                                                        <input type="text" asp-for="Usernamehddt" class="form-control" placeholder="Tên người tạo hoá đơn" autocomplete="off"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-5">Mật khẩu của HĐĐT</div>
+                                                    <div class="col-md-7">
+                                                        <input type="text" asp-for="Passwordhddt" class="form-control" placeholder="Mật khẩu hddt" autocomplete="off" />
+                                                    </div>
+                                                </div>*@
+                                                <div class="form-group">
+                                                    <div class="col-md-5">Mẫu số hoá đơn</div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="mausohd" type="text" class="form-control" id="cboMausohd"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-5">Ký hiệu hoá đơn</div>
+                                                    <div class="col-md-7">
+                                                        <select asp-for="kyhieuhd" type="text" class="form-control" id="cboKyhieuhd"></select>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-group">
+                                                <button type="submit" class="btn btn-block btn-primary form-control">Đồng ý</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap.js"></script>
+
+    <script src="~/AdminLTE/plugins/jquery-ui/js/jquery-ui.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-validate/js/jquery.validate.js"></script>
+    <script src="~/AdminLTE/plugins/jquery-validate/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/AdminLTE/plugins/select2/js/select2.full.js"></script>
+
+    <script src="~/AdminLTE/plugins/slimscroll/js/jquery.slimscroll.js"></script>
+    <script src="~/AdminLTE/plugins/fastclick/js/fastclick.js"></script>
+    @*<script src="~/Scripts/Shared/_Layout.js"></script>*@
+    <script src="~/AdminLTE/dist/js/app.js"></script>
+
+    @*<script src="~/js/site.js"></script>*@
+
+</body>
+</html>
+
+<script>
+    $('#txtUsername').blur(function () {
+        username = $(this).val();
+        $("cboMausohd").html('');
+        var option = '';
+        var option1 = '';
+        $.ajax({
+            url: '/Login/listMausohd',
+            type: 'GET',
+            dataType: 'json',
+            data: { username: username },
+            success: function (responds) {
+                if (responds.status) {
+                    var data = JSON.parse(responds.data);
+                    console.log(data);
+                    $('#cboMausohd').html('');
+                    $.each(data, function (i, item) {
+                        console.log(item.mausohd)
+                        option = option + '<option value="' + item.mausohd + '">' + item.mausohd + '</option>';
+                       
+                    });
+                   
+                    $('#cboMausohd').html(option);
+
+                    $('#cboKyhieuhd').html('');
+                    $.each(data, function (i, item) {
+                        console.log(item.kyhieuhd);
+                        option1 = option1 + '<option value="' + item.kyhieuhd + '">' + item.kyhieuhd + '</option>';
+                       
+                    });
+                   
+                    $('#cboKyhieuhd').html(option1);
+                }
+                else {
+
+                    alert('Không có dữ liệu.');
+                }
+            }
+        })
+    });
+</script>

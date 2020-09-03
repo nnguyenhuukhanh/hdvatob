@@ -1,0 +1,108 @@
+﻿@model IEnumerable<hdvatob.Data.Model.cthdvat>
+
+@{
+    ViewData["Title"] = "Themhuycthd";
+}
+@section Scripts {
+
+    <script src="~/Asset/Chitiethoadon/ThemctTuhuyhdControl.js"></script>
+<script>
+     function checkAll(tableID) {
+            var table = document.getElementById(tableID);
+            var val = table.rows[0].cells[0].children[0].checked;
+            for (var i = 1; i < table.rows.length; i++) {
+                table.rows[i].cells[0].children[0].checked = val;
+            }
+        }
+</script>
+}
+<section class="content-header">
+    <h1>
+        Thêm chi tiết từ huỷ hoá đơn thuế GTGT
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlHoadon")">Danh sách hoá đơn</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlEditHoadon")">Điều chỉnh hoá đơn GTGT</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <form asp-action="ThemctTuhuyhd" id="frmThemctTuhuyhd" method="get">
+                        <input type="hidden" name="idhoadon" value="@ViewBag.idhoadon" />
+                        <div class="form-group col-md-3">
+                            STT hoá đơn VAT
+                            <input type="text" class="form-control" name="stt" value="@ViewBag.stt" />
+                        </div>
+                        <br />
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary" title="Tìm"><i class="fa fa-search"></i></button>
+                            <a href="@Context.Session.GetString("urlEditHoadon")" class="btn btn-default" title="huỷ"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                    <div class="col-md-4">
+                        <form asp-action="ThemctTuhuyhd_" id="frmThemctTuhuyhd_" method="post">
+                            <input type="hidden" name="idhoadon" value="@ViewBag.idhoadon" />
+                            <input type="hidden" name="listString" id="stringId" />
+                            <button type="button" class="btn btn-warning" id="btThemctTuhuyhd" title="Thêm chi tiết hoá đơn huỷ"><i class="fa fa-check-circle"></i></button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box-body">
+                <div class="col-md-12" style="max-height:300px; overflow:auto">
+                    @if (ViewBag.count > 0)
+                    {
+                        <table class="table mytable text-nowrap" id="tbThemtuhuy">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" onchange="checkAll ('tbThemtuhuy')" /></th>
+                                    <th>Diễn giải</th>
+                                    <th>TK có</th>
+                                    <th>TK nợ</th>
+                                    <th>HTTC</th>
+                                    <th>Số tiền</th>
+                                    <th>Serial</th>
+                                    <th>Tên khách</th>
+                                    <th>Code đoàn</th>
+                                    <th>%PPV</th>
+                                    <th>%VAT</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="choncthd">
+                                        <td class="text-center">
+                                            <input type="checkbox" class="ckId" data-id="@item.Id" data-diengiai="@item.diengiai" data-sotien="@item.sotien" />
+                                        </td>
+                                        <td class="diengiai"><span>@item.diengiai.Trim()</span></td>
+                                        <td class="tkco"><span>@item.tkco</span></td>
+                                        <td class="tkno"><span>@item.tkno</span></td>
+                                        <td class="httc"><span>@item.httc</span></td>
+                                        <td class="sotien"><span>@Html.Raw(string.Format("{0:#,##0}", item.sotien))</span></td>
+                                        <td class="serial"><span>@item.serial</span></td>
+                                        <td class="tenkhach"><span>@item.tenkhach</span></td>
+                                        <td class="sgtcode"><span>@item.sgtcode</span></td>
+                                        <td class="ppv"><span>@item.ppv</span></td>
+                                        <td class="vat"><span>@item.vat</span></td>
+                                        <td class="ghichu"><span>@item.ghichu</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+

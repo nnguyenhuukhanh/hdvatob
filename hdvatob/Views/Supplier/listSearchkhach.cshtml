@@ -1,0 +1,106 @@
+﻿@model List<supplier>
+
+<div class="modal-dialog" style="width:80%">
+    <div class="modal-content">
+        <div class="modal-header bg-gray">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-title">Danh mục khách hàng</div>
+        </div>
+        <div class="modal-body">
+            <div class="row form-group">
+                <div class="col-xs-12 col-md-6">
+                    <div class="input-group">
+                        <input type="text" value="@ViewBag.search" class="form-control" id="txtTimkh" placeholder="Tìm thông tin code, tên khách hàng" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" id="btSearch"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div style="height:200px; overflow-x:auto;">
+                <table class="table mytable" style="overflow:auto;" id="tbkhachhang">
+                    <thead>
+                        <tr>
+                            <th>
+                                Code
+                            </th>
+                            <th>
+                                Tên khách hàng
+                            </th>
+                            <th>
+                                Thành phố/ Tỉnh
+                            </th>
+                            <th>
+                                Địa chỉ
+                            </th>
+                            <th>
+                                Mã số thuế
+                            </th>
+                            <th>
+                                Điện thoại
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.code
+                                </td>
+                                <td style="width:300px;">
+                                    @item.realname
+                                </td>
+                                <td>
+                                    @item.city
+                                </td>
+                                <td>
+                                    @item.address
+                                </td>
+                                <td>
+                                    @item.taxcode
+                                </td>
+                                <td>
+                                    @item.telephone
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gray" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#btSearch').on('click', function () {
+        var search = $('#txtTimkh').val();
+        var url = "/Supplier/listSearchkhach";
+        $.get(url, { search: search }, function (data) {
+            $("#uModalTimkh").modal('show')
+            $('.listtimkh').html(data);
+        });
+    });
+    $(function () {
+        $('#tbkhachhang').on('click', 'tbody tr', function (event) {
+           
+            $('#utxtmakh').val($(this).find("td").eq(0).html().trim());
+            var tencty = $(this).find("td").eq(1).html();
+            //var newtencty;
+            //newtencty = tencty.replace("amp;", "");
+            $('#utxttencty').val(tencty.trim());
+            $('#utxtdiachi').val($(this).find("td").eq(3).html().trim());
+             $('#utxtmst').val($(this).find("td").eq(4).html().trim());
+            $('#utxtdienthoai').val($(this).find("td").eq(5).html().trim());           
+            $("#uModalTimkh").modal('hide');
+            $('#utxttencty').focus();
+        })
+    });
+</script>

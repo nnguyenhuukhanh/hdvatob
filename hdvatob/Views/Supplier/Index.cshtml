@@ -1,0 +1,101 @@
+﻿@model IPagedList<supplier>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
+@using X.PagedList
+
+@{
+    ViewData["Title"] = "Khách hàng";
+}
+@section Scripts{
+    <script src="~/Asset/Supplier/SupplierControl.js"></script>
+
+}
+
+<section class="content-header">
+    <h1>
+        Danh sách khách hàng
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-action="index">Danh sách khách hàng</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <form asp-action="index" method="get">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="input-group">
+                                <input type="text" placeholder="Find by name, Id" class="form-control" name="searchString" value="@ViewData["currentFilter"]" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    <a asp-action="create" class="btn btn-primary" title="Tạo mới khách hàng"><i class="fa fa-plus"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12" style="overflow-x:auto">
+                    <table class="table mytable text-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><i class="fa fa-gear"></i></th>
+                                <th> Mã KH</th>
+                                <th> Tên giao dịch</th>
+                                <th> Tên thương mại</th>
+                                <th>Thành phố</th>
+                                <th>Địa chỉ</th>
+                                <th>Điện thoại</th>
+                                <th>Fax</th>
+                                <th>Email</th>
+                                <th>Người liên hệ </th>
+                                <th>Mã số thuế</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.code">
+                                    <td class="text-center">
+                                        <a href="javascript:;" data-code="@item.code" title="Xem log file" class="viewlogSupplier text-success"><i class="fa fa-file-text"></i></a><span> | </span>
+                                        <a asp-action="Edit" asp-route-code="@item.code" title="Cập nhật khách hàng"><i class="fa fa-edit text-primary"></i></a><span> | </span>
+                                        @*<a href="javascript:;" id=@Html.Raw("btnXoakh_"+item.code) data-code="@item.code" title="Xoá khách hàng"><i class=" fa fa fa-trash text-danger"></i></a>*@
+                                        <a asp-action="Xoakhachhang" asp-route-code="@item.code" onclick="return confirm('Xoá khách hàng này?')" title="Xoá khách hàng"><i class=" fa fa fa-trash text-danger"></i></a>
+                                    </td>
+                                    <td>@item.code</td>
+                                    <td>@item.name</td>
+                                    <td>@item.realname</td>
+                                    <td>@item.city</td>
+                                    <td>@item.address</td>
+                                    <td>@item.telephone</td>
+                                    <td>@item.fax</td>
+                                    <td>@item.email</td>
+                                    <td>@item.contact</td>
+                                    <td>@item.taxcode</td>                                   
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager((IPagedList)ViewBag.supplier, page => Url.Action("index", new { page, searchString = @ViewData["currentFilter"] }),
+                                       PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                                            {
+                                                LiElementClasses = new string[] { "page-item" },
+                                       PageClasses = new string[] { "page-link" },
+                                                MaximumPageNumbersToDisplay = 5,
+                                                UlElementClasses = new[] { "pagination" },
+                                       ContainerDivClasses = new[] { "pagination-container" }
+                                            }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "nameListContainer" }))
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

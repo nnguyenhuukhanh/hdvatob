@@ -1,0 +1,246 @@
+﻿@model IPagedList<Hoadon>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
+@using X.PagedList
+
+@{
+    ViewData["Title"] = "Hoá đơn";
+}
+
+@section Scripts{
+
+    <script src="~/Asset/Hoadon/hoadonControl.js"></script>
+    
+}
+
+<section class="content-header">
+    <h1>
+        Danh sách hoá đơn
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-action="index">Danh sách hoá đơn</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <h4>
+                        <a asp-action="Tachvetour" title="Tách vé tour OB & ND thành nhiều hoá đơn"><i class="fa fa-list-ol fa-lg"></i></a><span> | </span>
+                        <a asp-action="Hoadontach" title="Làm hoá đơn cho các vé tour đã tách"><i class="fa fa-th fa-lg text-warning"></i></a>
+                        @*<a asp-controller="Huyhoadon" asp-action="Index" title="Huỷ hoá đơn"><i class="fa fa-reply fa-lg text-danger"></i></a>*@
+                        @* <a href="#"><i class="fa fa-plus fa-lg"></i></a><i> | </i>
+                    <a href="#"><i class="fa fa-plus fa-lg"></i></a><i> | </i>*@
+                    </h4>
+                </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="col-md-12">
+                    <form asp-action="index" method="get">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="input-group">
+                                <input type="text" placeholder="Tìm sgtcode, stt, số hoá đơn, tên công ty, tên khách" class="form-control" name="searchString" value="@ViewData["currentFilter"]" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    <a asp-action="create" class="btn btn-primary" title="Tạo mới hoá đơn"><i class="fa fa-plus"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body">
+
+                <div class="col-md-12" style="overflow-x:auto">
+                    <table class="table mytable text-nowrap" id="tbHoadon">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><i class="fa fa-gear"></i></th>
+                                <th>
+                                    Ngày xuất HD
+                                </th>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Số HĐVAT
+                                </th>
+                                <th>
+                                    Ký hiệu HĐ
+                                </th>
+                                <th>
+                                    Mẫu số HĐ
+                                </th>
+                                <th>
+                                    Coupon
+                                </th>
+                                <th>
+                                    Mã KH
+                                </th>
+                                <th>
+                                    Tên công ty
+                                </th>
+                                <th>
+                                    Tên khách
+                                </th>
+                                <th>
+                                    Địa chỉ
+                                </th>
+                                <th>
+                                    Điện thoại
+                                </th>
+                                <th>
+                                    MS Thuế
+                                </th>
+                                <th>
+                                    HTTT
+                                </th>
+                                <th>
+                                    Ghi chú
+                                </th>
+                                <th>
+                                    Hợp đồng
+                                </th>
+                                <th>
+                                    Bắt đầu
+                                </th>
+                                <th>
+                                    Kết thúc
+                                </th>
+                                <th>
+                                    Người lập hoá đơn
+                                </th>
+                                <th>
+                                    Ngày tạo hoá đơn
+                                </th>
+                                @*<th>
+                                    Ngày in hoá đơn
+                                </th>*@
+                                <th>
+                                    Khoá HĐ
+                                </th>
+                                <th>
+                                    Người khoá HĐ
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr id="row_@item.Idhoadon" data-idhoadon="@item.Idhoadon">
+                                <td>
+                                    <a href="javascript:;" data-idhoadon="@item.Idhoadon" title="Xem log file" class="viewlogHoadon text-success"><i class="fa fa-file-text"></i></a><span> | </span>
+                                    @*<a asp-action="Edit" asp-route-id="@item.Idhoadon" title="Cập nhật hoá đơn"><i class="fa fa-edit text-primary"></i></a><span> | </span>*@
+                                    @if (string.IsNullOrEmpty(item.keyhddt))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Idhoadon" title="Cập nhật hoá đơn"><i class="fa fa-edit text-primary"></i></a><span> | </span>
+                                        <a href="javascript:;" class="delete" data-idhoadon="@item.Idhoadon" data-nguoitaohd="@item.nguoitaohd" data-user="@ViewBag.username" title="Huỷ hoá đơn"><i class="fa fa-trash text-danger"></i></a> <span> | </span>
+                                        <a asp-action="Datatuvetour" asp-route-idhoadon="@item.Idhoadon" data-idhoadon="@item.Idhoadon" title="Lấy data từ vé tour"><i class="fa fa-paste text-warning"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Idhoadon" onclick="return confirm ('Data đã bị khoá. Bạn muốn xem chi tiết?')" title="Cập nhật hoá đơn"><i class="fa fa-edit text-primary"></i></a><span> | </span>
+                                        <a href="javascript:;" onclick="alert('Data đã bị khoá')"><i class="fa fa-trash text-danger"></i></a><span> | </span>
+                                        <a href="javascript:;" onclick="alert('Đây là hoá đơn điện tử, không được điều chỉnh thông tin khi đã xuất hoá đơn.')" data-idhoadon="@item.Idhoadon" title="Lấy data từ vé tour"><i class="fa fa-paste text-warning"></i></a>
+                                    }
+                                </td>
+                                @*<td>
+            @Html.Raw(item.ngayct.HasValue ? item.ngayct.Value.ToString("dd/MM/yyyy") : " / ")
+        </td>*@
+                                <td>
+                                    @Html.Raw(item.ngayin.HasValue ? item.ngayin.Value.ToString("dd/MM/yyyy HH:mm") : " / / : :")
+                                </td>
+                                <td>
+                                    @item.stt
+                                </td>
+                                <td>
+                                    @item.hdvat
+                                </td>
+                                <td>
+                                    @item.kyhieu
+                                </td>
+                                <td>
+                                    @item.mausohd
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" class="minimal" checked="@item.coupon" />
+                                </td>
+                                <td>
+                                    @item.makh
+                                </td>
+                                <td>
+                                    @item.tenkh
+                                </td>
+                                <td>
+                                    @item.tenkhach
+                                </td>
+                                <td>
+                                    @item.diachi
+                                </td>
+                                <td>
+                                    @item.dienthoai
+                                </td>
+                                <td>
+                                    @item.msthue
+                                </td>
+                                <td>
+                                    @item.httt
+                                </td>
+                                <td>
+                                    @item.ghichu
+                                </td>
+                                <td>
+                                    @item.hopdong
+                                </td>
+                                <td>
+                                    @Html.Raw(item.batdau.HasValue ? item.batdau.Value.ToString("dd/MM/yyyy") : " / /")
+                                </td>
+                                <td>
+                                    @Html.Raw(item.ketthuc.HasValue ? item.ketthuc.Value.ToString("dd/MM/yyyy") : " / /")
+                                </td>
+                                <td>
+                                    @item.nguoitaohd
+                                </td>
+                                <td>
+                                    @item.ngaytao.ToString("dd/MM/yyyy HH:mm")
+                                </td>
+                                @*<td>
+            @Html.Raw(item.ngayin.HasValue ? item.ngayin.Value.ToString("dd/MM/yyyy HH:mm") : " / / : :")
+        </td>*@
+                                <td>
+                                    @Html.Raw(item.datelock.HasValue ? item.datelock.Value.ToString("dd/MM/yyyy HH:mm") : " / / : :")
+                                </td>
+                                <td>
+                                    @item.locker
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager((IPagedList)ViewBag.hoadon, page => Url.Action("index", new { page, searchString = @ViewData["currentFilter"] }),
+                                     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions
+                                          {
+                                              LiElementClasses = new string[] { "page-item" },
+                                     PageClasses = new string[] { "page-link" },
+                                              MaximumPageNumbersToDisplay = 5,
+                                              UlElementClasses = new[] { "pagination" },
+                                     ContainerDivClasses = new[] { "pagination-container" }
+                                          }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "nameListContainer" }))
+
+                </div>
+            </div>
+            
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div id="chitiethoadon"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+

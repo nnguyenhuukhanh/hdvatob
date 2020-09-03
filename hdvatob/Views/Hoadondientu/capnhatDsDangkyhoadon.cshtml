@@ -1,0 +1,127 @@
+﻿@model Dsdangkyhoadondientu
+
+@{
+    ViewData["Title"] = "Cập nhật đăng ký hoá đơn";
+}
+
+<section class="content-header">
+    <h1>
+        Cập nhật thông tin đăng ký hoá đơn
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlEditHoadondt")">Cập nhật thông tin chi nhánh</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="capnhatDsDangkyhoadon">
+                        <input type="hidden" asp-for="id" />
+                        <input type="hidden"    asp-for="sohoadon" />
+                        <div class="form-group col-md-2">
+                            Ký hiệu
+                            <input asp-for="chinhanh" class="form-control text-center" readonly />
+                            <span asp-validation-for="chinhanh" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Mẫu số HD
+                            <input asp-for="mausohd" class="form-control text-center" />
+                            <span asp-validation-for="mausohd" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Ký hiệu HD
+                            <input asp-for="kyhieuhd" class="form-control text-center" />
+                            <span asp-validation-for="kyhieuhd" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Mã số thuế
+                            <input asp-for="masothue" class="form-control text-center" />
+                            <span asp-validation-for="masothue" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            Số HD từ
+                            <input asp-for="sohdtu" class="form-control text-center" />
+                            <span asp-validation-for="sohdtu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Số HD đến
+                            <input asp-for="sohdden" class="form-control text-center " />
+                            <span asp-validation-for="sohdden" class="text-danger"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-2">
+                            Sử dụng từ
+                            <input asp-for="sudungtungay" class="form-control text-center datepicker" type="text" />
+                            <span asp-validation-for="sudungtungay" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-2">
+                            Sử dụng đến
+                            <input asp-for="sudungdenngay" class="form-control text-center datepicker" type="text" />
+                            <span asp-validation-for="sudungdenngay" class="text-danger"></span>
+                        </div>
+
+                        @*<div class="form-group col-md-2">
+                            Điện thoại
+                            <input asp-for="dienthoai" class="form-control" />
+                            <span asp-validation-for="dienthoai" class="text-danger"></span>
+                        </div>*@
+                        <div class="form-group col-md-2">
+                            Main key
+                            <input asp-for="mainkey" class="form-control text-center" type="number" />
+                            <span asp-validation-for="mainkey" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-5">
+                            Địa chỉ
+                            <input asp-for="diachi" class="form-control" />
+                            <span asp-validation-for="diachi" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-md-1">
+                            Active
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="activation" type="checkbox" class="minimal" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-6">
+                            Site hoá đơn điện tử
+                            <input asp-for="sitehddt" class="form-control" />
+                            <span asp-validation-for="sitehddt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            Account hoá đơn điện tử
+                            <input asp-for="usersite" class="form-control" />
+                            <span asp-validation-for="usersite" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-3">
+                            Pass hoá đơn điện tử
+                            <input asp-for="passsite" class="form-control" />
+                            <span asp-validation-for="passsite" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            @if (Convert.ToBoolean(Context.Session.GetString("admin").ToString()))
+                            {
+                                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                            }
+                            <a asp-action="listDsDangkyhoadon" class="btn btn-default"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,223 @@
+﻿@model IEnumerable<hdvatob.ViewModel.Dsdangkyhoadondientu>
+
+@{
+    ViewData["Title"] = "Danh sách đăng ký hoá đơn";
+}
+
+@section Scripts{
+
+    <script src="~/Asset/Hoadondientu/HoadondientuControl.js"></script>
+}
+
+<section class="content-header">
+    <h1>
+        Danh sách chi nhánh đăng ký hoá đơn điện tử
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-action="index">Danh sách chi nhánh</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <h4>
+                    <a asp-controller="hoadondientu" asp-action="listDsDangkyhoadon"> <i class="fa fa-th fa-lg text-danger"></i></a>
+                    @if (Convert.ToBoolean(Context.Session.GetString("admin").ToString()))
+                    {
+                        <i> | </i> <a asp-controller="hoadondientu" asp-action="themDsDangkyhoadon"><i class="fa fa-plus fa-lg text-primary"></i></a>
+                    }
+                </h4>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12" style="overflow:auto;">
+                    <table class="table mytable text-nowrap">
+                        <thead>
+                            <tr>
+                                <th><i class="fa fa-gear text-center"></i></th>
+                                <th>Mẫu số HD</th>
+                                <th>Ký hiệu HD</th>
+                                <th>Mã số thuế</th>
+                                <th>Số HD từ</th>
+                                <th>Số HD đến</th>
+                                <th>Số HD đã xuất</th>
+                                <th>Sử dụng từ ngày</th>
+                                <th>Sử dụng đến ngày</th>
+                                <th>Mainkey</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        @if (Convert.ToBoolean(Context.Session.GetString("admin").ToString()))
+                                        {
+                                            <a asp-action="capnhatDsDangkyhoadon" asp-controller="hoadondientu" asp-route-id="@item.id"><i class="fa fa-edit"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-edit"></i>
+                                        }
+                                    </td>
+                                    <td class="text-center">@item.mausohd</td>
+                                    <td class="text-center">@item.kyhieuhd</td>
+                                    <td class="text-center">@item.masothue</td>
+                                    <td class="text-center">@item.sohdtu</td>
+                                    @if (decimal.Parse(item.sohdden) - item.sohoadon <= 50)
+                                    {
+                                        <td class="text-center" style="background-color:#FF7800">@item.sohdden</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center">@item.sohdden</td>
+                                    }
+                                    <td class="text-center">@item.sohoadon.ToString().PadLeft(7, '0')</td>
+                                    <td class="text-center">@item.sudungtungay.ToString("dd/MM/yyyy")</td>
+                                    <td class="text-center">@item.sudungdenngay.ToString("dd/MM/yyyy")</td>
+                                    <td class="text-center">@item.mainkey</td>
+                                    <td class="text-center">
+                                        <input type="checkbox" checked="@item.activation" />
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        @*<tfoot>
+                                <tr>
+                                    <td class="text-center"><a asp-controller="hoadondientu" asp-action="themDsDangkyhoadon" asp-route-chinhanh="@Model.maviettat"><i class="fa fa-plus text-primary"></i></a></td>
+                                </tr>
+                            </tfoot>*@
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.chinhanh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.mausohd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.kyhieuhd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.masothue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sohoadon)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ngaytaohd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sohdtu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sohdden)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sudungtungay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sudungdenngay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.mainkey)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dienthoai)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.diachi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.activation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sitehddt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.usersite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.passsite)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.chinhanh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.mausohd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.kyhieuhd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.masothue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sohoadon)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ngaytaohd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sohdtu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sohdden)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sudungtungay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sudungdenngay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.mainkey)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dienthoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.diachi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.activation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sitehddt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.usersite)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.passsite)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

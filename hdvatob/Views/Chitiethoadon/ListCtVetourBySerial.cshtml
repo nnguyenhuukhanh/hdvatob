@@ -1,0 +1,58 @@
+﻿@model IEnumerable<hdvatob.Data.Model.cthdvat>
+@{
+    Layout = null;
+}
+
+    <div style="overflow-x:auto">
+        <table class="table mytable text-nowrap">
+            <thead>
+                <tr>
+                    <th>Diễn giải</th>
+                    <th>
+                        Số tiền NT
+                    </th>
+                    <th>
+                        Tiền VNĐ
+                    </th>
+                    <th>
+                        %VAT
+                    </th>
+                    <th>
+                        %PPV
+                    </th>
+                    <th>
+                        Tài khoản nợ
+                    </th>
+                    <th>
+                        Tài khoản có
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.diengiai</td>
+                        <td class="text-right">@Html.Raw(string.Format("{0:#,##0.0}", item.sotiennt))</td>
+                        <td class="text-right">@Html.Raw(string.Format("{0:#,##0}", item.sotien))</td>
+                        <td class="text-center">@item.vat</td>
+                        <td class="text-center">@item.ppv</td>
+                        <td class="text-center">@item.tkno</td>
+                        <td class="text-center">@item.tkco</td>
+                    </tr>
+
+                }
+            </tbody>
+            @if (ViewBag.tongtien > 0)
+            {
+                <tfoot>
+                    <tr>
+                        <td class="text-right">Tổng giá trị:</td>
+                        <td class="text-right text-bold">@Html.Raw(string.Format("{0:#,##0.0}", ViewBag.tongtien))</td>
+                        <td class="text-right text-bold">@Html.Raw(string.Format("{0:#,##0}", ViewBag.tongtien))</td>
+                    </tr>
+                </tfoot>
+            }
+        </table>
+        </div>

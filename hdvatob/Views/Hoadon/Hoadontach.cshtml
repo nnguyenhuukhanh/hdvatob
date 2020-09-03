@@ -1,0 +1,106 @@
+﻿@model List<Tachve>
+@{
+    ViewData["Title"] = "Hoadontach";
+}
+@section Scripts {
+    <script src="~/Asset/Hoadon/HoadontachControl.js"></script>
+<script>
+     function checkAll(tableID) {
+            var table = document.getElementById(tableID);
+            var val = table.rows[0].cells[0].children[0].checked;
+            for (var i = 1; i < table.rows.length; i++) {
+                table.rows[i].cells[0].children[0].checked = val;
+            }
+        }
+</script>
+}
+
+<section class="content-header">
+    <h1>
+        Các hoá đơn đã tách từ vé tour
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a href="@Context.Session.GetString("urlHoadon")">Danh sách hoá đơn</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <div class="col-md-12">
+                    <form asp-action="Hoadontach" id="frmHoadontach" method="get">
+                        <div class="form-group col-md-2">
+                            Ngày hoá đơn từ ngày
+                            <input name="tungay" value="@ViewBag.tungay" class="form-control datepicker" type="text" asp-format="{0:dd/MM/yyyy}" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Đến ngày
+                            <input name="denngay" value="=@ViewBag.denngay" class="form-control datepicker" type="text" asp-format="{0:dd/MM/yyyy}" />
+                        </div>
+                        <br />
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary" title="Tìm"><i class="fa fa-search"></i></button>
+                            <a href="@Context.Session.GetString("urlHoadon")" class="btn btn-default" title="huỷ"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                    <div class="col-md-4">
+                        <form asp-action="Hoadontach" id="frmHoadontach_" method="post">
+                            <input type="hidden" name="listhoadontach" id="stringHoadontach" />
+                            <button type="button" class="btn btn-warning" id="btHoadontach" title="Chuyển data qua hoá đơn VAT"><i class="fa fa-check-circle"></i></button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="col-md-12" style="max-height:200px; overflow:auto">
+                    @if (ViewBag.count > 0)
+                    {
+                        <table class="table mytable text-nowrap" id="tbHoadontach">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" onchange="checkAll ('tbHoadontach')" /></th>
+                                    <th>Ngày HĐ VAT</th>
+                                    <th>Mã KH</th>
+                                    <th>Tên Công ty</th>
+                                    <th>Người tách HĐ</th>
+                                    <th>Địa chỉ khách hàng</th>
+                                    <th>Điện thoại</th>
+                                    <th>Mã số thuế</th>
+                                    <th>Số vé tour</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var i in Model)
+                                {
+                                    <tr class="chon_" data-id="@i.Idhoadon">
+                                        <td class="text-center"><input type="checkbox" class="ckId" data-id="@i.Idhoadon" /></td>
+                                        <td class="ngayct"><span> @Html.Raw(string.Format("{0:dd/MM/yyyy}", i.ngayct))</span></td>
+                                        <td class="makh"><span>@i.makh</span></td>
+                                        <td class="tenkh"><span>@i.tenkh</span></td>
+                                        <td class="tenkhach"><span>@i.nguoitach</span></td>
+                                        <td class="diachi"><span>@i.diachi</span></td>
+                                        <td class="dienthoai"><span>@i.dienthoai</span></td>
+                                        <td class="msthue"><span>@i.msthue</span></td>
+                                        <td class="serial"><span>@i.serial</span></td>
+                                        <td class="ghichu"><span>@i.ghichu</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+
+            </div>
+            <div class="box-body">
+                <div class="col-md-12">
+                    <div class="chitiettachve" style="overflow-x:auto"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

@@ -1,0 +1,147 @@
+﻿@model IEnumerable<hdvatob.ViewModel.NgayhuyhdViewModel>
+
+@{
+    ViewData["Title"] = "ngayhuyhd";
+}
+
+@section Scripts{
+    <script src="~/Asset/Baocao/ngayhdControl.js"></script>
+}
+<section class="content-header">
+    <h1>
+        Báo cáo ngày huỷ hoá đơn VAT
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-action="index" asp-controller="Hoadon">Danh sách hoá đơn</a></li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <form asp-action="doanhthungayhd" id="frmDoanhthungayhd">
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            Từ ngày
+                            <input type="text" class="form-control text-center datepicker" id="txtTungay" value="@ViewBag.tungay" title="dd/MM/yyyy" name="tungay" autocomplete="off" />
+                        </div>
+                        <div class="col-md-2">
+                            Đến ngày
+                            <input type="text" class="form-control text-center datepicker" id="txtDenngay" value="@ViewBag.denngay" title="dd/MM/yyyy" name="denngay" autocomplete="off" />
+                        </div>
+                        <div class="col-md-2">
+                            Tour
+                            <select class="form-control " asp-items="@ViewBag.tour" name="tour"></select>
+                        </div>
+                        <br />
+                        <div class="col-md-2">
+                            <span class="btn-group">
+                                <button type="submit" formaction="/Baocao/ngayhuyhd" formmethod="get" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                <button type="submit" formaction="/Baocao/ngayhuyhdToExcel" formmethod="post" class="btn btn-success" title="Export danh sách to Excel"><i class="fa fa-file-excel-o"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="box-body" style="overflow-x:auto;">
+                <div class="col-md-12">
+                    <table class="table mytable text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>
+                                    Ngày HĐ
+                                </th>
+                                <th>
+                                    Số HĐ VAT
+                                </th>
+                                <th>
+                                    Khách hàng
+                                </th>
+                                <th>
+                                    Diễn giải
+                                </th>
+                                <th>
+                                    Code đoàn
+                                </th>
+                                <th>
+                                    Số vé tour
+                                </th>
+                                <th>
+                                    Số tiền NT
+                                </th>
+                                <th>
+                                    Tiền VNĐ
+                                </th>
+                                <th>
+                                    %PPV
+                                </th>
+                                <th>
+                                    Tiền PPV
+                                </th>
+                                <th>
+                                    %VAT
+                                </th>
+                                <th>
+                                    Thuế VAT
+                                </th>                             
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.count > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+                            <tr>
+                                <td class="text-center">@item.stt</td>
+                                <td>
+                                    @item.ngayhoadon.ToString("dd/MM/yyyy")
+                                </td>
+                                <td>
+                                    @item.hdvat
+                                </td>
+                                <td>
+                                    @item.tenkhach.Trim()
+                                </td>
+                                <td>
+                                    @item.diengiai
+                                </td>
+                                <td>
+                                    @item.sgtcode
+                                </td>
+                                <td>
+                                    @item.serial
+                                </td>
+                                <td class="text-right">
+                                    @Html.Raw(string.Format("{0:#,##0}", item.sotiennt))
+                                </td>
+                                <td class="text-right">
+                                    @Html.Raw(String.Format("{0:#,##0}", item.tienvnd))
+                                </td>
+                                <td class="text-center">
+                                    @item.ppv
+                                </td>
+                                <td class="text-right">
+                                    @Html.Raw(String.Format("{0:#,##0}", item.tienppv))
+                                </td>
+                                <td class="text-center">
+                                    @item.vat
+                                </td>
+                                <td class="text-right">
+                                    @Html.Raw(String.Format("{0:#,##0}", item.thuevat))
+                                </td>
+
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

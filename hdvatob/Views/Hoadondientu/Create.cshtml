@@ -1,0 +1,80 @@
+﻿@model ChinhanhHoadondientu
+
+@{
+    ViewData["Title"] = "Create";
+}
+<section class="content-header">
+    <h1>
+        Thêm mới chi nhánh đăng ký hoá đơn điện tử
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"><a asp-controller="Hoadondientu" asp-action="index">Danh sách chi nhánh</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </button>              
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group col-md-2">
+                            Mã CN
+                            <input asp-for="machinhanh" class="form-control text-center text-uppercase" />
+                            <span asp-validation-for="machinhanh" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-5">
+                            Tên chi nhánh
+                            <input asp-for="tenchinhanh" class="form-control" />
+                            <span asp-validation-for="tenchinhanh" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-5">
+                            Địa chỉ
+                            <input asp-for="diachi" class="form-control" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-3">
+                            Điện thoại
+                            <input asp-for="dienthoai" class="form-control" />                           
+                        </div>
+                        <div class="form-group col-md-3">
+                            Fax
+                            <input asp-for="fax" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-3">
+                           Mã số thuế
+                            <input asp-for="masothue" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            Ký hiệu
+                            <input asp-for="maviettat" class="form-control text-center" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            Active
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="isActive" type="checkbox" class="minimal" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                            <a href="index" class="btn btn-default"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>        
+    </div>
+</section>
+
+

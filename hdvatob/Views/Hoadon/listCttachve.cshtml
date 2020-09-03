@@ -1,0 +1,44 @@
+﻿@model IEnumerable<hdvatob.Data.Model.Cttachve>
+
+@{
+    Layout = null;
+}
+
+<table class="table text-nowrap mytable" >
+    <thead>
+        <tr>
+            <th>Diễn giải</th>
+            <th>Số vé tour</th>
+            <th>Ngày xuất vé</th>
+            <th>Tên khách</th>                
+            <th>Code Đoàn</th>               
+            <th>Nguyên tệ</th>              
+            <th>Loại tiền </th>              
+            <th>Tỷ giá</th>               
+            <th>VNĐ</th>              
+            <th>%PPV</th>
+            <th>%VAT</th>              
+            <th>Ghi chú</th>
+              
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.diengiai</td>                    
+                <td>@item.serial</td>                   
+                <td>@item.xuatve.ToString("dd/MM/yyyy")</td>                   
+                <td>@item.tenkhach</td>
+                <td>@item.sgtcode</td>
+                <td class="text-right">@Html.Raw(string.Format("{0:#,##0.00}",item.sotiennt))</td>
+                <td class="text-center">@item.loaitien</td>
+                <td class="text-right">@Html.Raw(string.Format("{0:#,##0.00}",item.tygia))</td>
+                <td class="text-right">@Html.Raw(string.Format("{0:#,##0}",item.sotien))</td>
+                <td class="text-center">@item.ppv</td>
+                <td class="text-center">@item.vat</td>
+                <td >@item.ghichu</td>
+            </tr>
+        }
+    </tbody>
+</table>
